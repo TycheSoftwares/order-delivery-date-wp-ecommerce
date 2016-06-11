@@ -1,30 +1,25 @@
-function dwd(date)
-{
+function dwd( date ) {
 	var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
-	var day = jQuery.datepicker.formatDate('DD', date);
-	if (jQuery("#"+day).val() != 'on')
-	{
+	var day = jQuery.datepicker.formatDate( 'DD', date );
+	if ( jQuery( "#" + day ).val() != 'on' ) {
 		return [false];
 	}
 	return [true];
 }
 
-function chd(date)
-{
-	var nW = dwd(date);
+function chd( date ) {
+	var nW = dwd( date );
 	return nW;
 }
 
-function avd(date)
-{
-	var delay_days = parseInt(jQuery("#order-days").val());
-	var noOfDaysToFind = parseInt(jQuery("#availableDays").val())
-	if(isNaN(delay_days))
-	{
+function avd( date ) {
+	var delay_days = parseInt( jQuery( "#order-days" ).val() );
+	var noOfDaysToFind = parseInt( jQuery( "#availableDays" ).val() );
+	if( isNaN( delay_days ) ) {
 		delay_days = 0;
 	}
-	if(isNaN(noOfDaysToFind))
-	{
+	
+	if( isNaN( noOfDaysToFind ) ) {
 		noOfDaysToFind = 1000;
 	}
 	
@@ -44,49 +39,58 @@ function avd(date)
 	
 	var loopCounter = gd(start , end , 'days');
 	var prev = s_day;
-	for(var i=1; i<=loopCounter; i++)
-	{
-		var l_start = new Date(start);
-		var l_end = new Date(end);
-		var new_date = new Date(ad(l_start,i));
-
+	for( var i = 1; i <= loopCounter; i++ ) {
+		var l_start = new Date( start );
+		var l_end = new Date( end );
+		var new_date = new Date( ad( l_start, i ) );
 		var day = "";
-		if(new_date.getDay() == 0)
+		if( new_date.getDay() == 0 ) {
 			day = "Sunday";
-		if(new_date.getDay() == 1)
+		}
+		if( new_date.getDay() == 1 ) {
 			day = "Monday";
-		if(new_date.getDay() == 2)
+		}
+			
+		if( new_date.getDay() == 2 ) {
 			day = "Tuesday";
-		if(new_date.getDay() == 3)
-			day = "Wednesday";
-		if(new_date.getDay() == 4)
-			day = "Thursday";
-		if(new_date.getDay() == 5)
-			day = "Friday";
-		if(new_date.getDay() == 6)
-			day = "Saturday";
-		day_check = jQuery("#"+day).val();
+		}
 		
-		if(day_check != "on")
-		{
-			l_end = new Date(ad(l_end,1));
+		if( new_date.getDay() == 3 ) {
+			day = "Wednesday";
+		}
+			
+		if( new_date.getDay() == 4 ) {
+			day = "Thursday";
+		}
+			
+		if( new_date.getDay() == 5 ) {
+			day = "Friday";
+		}
+			
+		if( new_date.getDay() == 6 ) {
+			day = "Saturday";
+		}
+			
+		day_check = jQuery( "#" + day ).val();
+		
+		if( day_check != "on" ) {
+			l_end = new Date( ad( l_end, 1 ) );
 			end = (l_end.getMonth()+1) + "/" + l_end.getDate() + "/" + l_end.getFullYear();
-			loopCounter = gd(start , end , 'days');
+			loopCounter = gd( start, end, 'days' );
 		}
 	}
+	
 	return {
 		minDate: minDate,
         maxDate: l_end
     };
 }
 
-function ad(dateObj, numDays)
-{
-	return dateObj.setDate(dateObj.getDate() + numDays);
+function ad( dateObj, numDays ) {
+	return dateObj.setDate( dateObj.getDate() + numDays );
 }
 
-function gd(date1, date2, interval)
-{
+function gd( date1, date2, interval ) {
 	var second = 1000,
 	minute = second * 60,
 	hour = minute * 60,
