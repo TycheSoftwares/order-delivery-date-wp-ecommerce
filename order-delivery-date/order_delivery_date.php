@@ -61,7 +61,7 @@ if ( !class_exists( 'order_delivery_date_wp_ecommerce_lite' ) ) {
         			$field_id = $results->id;
         		}
         	} else {
-        		$max_count = $wpdb->get_var( $wpdb->prepare( "SELECT max(checkout_order)+1 FROM $wpefield__TABLE;" ) );
+        		$max_count = $wpdb->get_var( $wpdb->prepare( "SELECT max(checkout_order)+1 FROM %s;", $wpefield__TABLE ) );
         		$query = "INSERT INTO $wpefield__TABLE (`id`, `name`, `type`, `mandatory`, `display_log`, `default`, `active`, `checkout_order`, `unique_name`, `options`, `checkout_set`) VALUES ('', 'Delivery Date', 'text', '0', '0', '0', '1', $max_count, 'e_deliverydate', '', '0');";
         		$wpdb->query( $query );
         		$field_id = $wpdb->insert_id;
@@ -108,7 +108,7 @@ if ( !class_exists( 'order_delivery_date_wp_ecommerce_lite' ) ) {
         	if( $results != null ) {
         		// do nothing
         	} else {
-        		$max_count = $wpdb->get_var( $wpdb->prepare( "SELECT max(checkout_order)+1 FROM $wpefield__TABLE;" ) );
+        		$max_count = $wpdb->get_var( $wpdb->prepare( "SELECT max(checkout_order)+1 FROM %s;", $wpefield__TABLE ) );
         		$query = "INSERT INTO $wpefield__TABLE (`id`, `name`, `type`, `mandatory`, `display_log`, `default`, `active`, `checkout_order`, `unique_name`, `options`, `checkout_set`) VALUES ('', 'Delivery Date', 'text', '0', '0', '0', '1', $max_count, 'e_deliverydate', '', '0');";
         		$wpdb->query( $query );
         	}
